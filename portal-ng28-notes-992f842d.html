@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再次到来 · ng28</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+            background-color: #fafaf8;
+            color: #1e2a3a;
+            line-height: 1.6;
+        }
+
+        .hero {
+            background: linear-gradient(145deg, #0f1a2e 0%, #1b2a44 100%);
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            color: #f0ede8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, #fafaf8, transparent);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 span {
+            font-weight: 600;
+            color: #c7b89c;
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0 auto 1.8rem;
+            font-size: 1.15rem;
+            color: #cfcdc6;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #d4cdbc;
+        }
+
+        .container {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+        }
+
+        .section {
+            padding: 3.5rem 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 450;
+            margin-bottom: 2rem;
+            color: #1e2a3a;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 48px;
+            height: 3px;
+            background: #c7b89c;
+            border-radius: 4px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #eae7e0;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            color: #1f2b3c;
+        }
+
+        .card p {
+            font-size: 0.97rem;
+            color: #445566;
+        }
+
+        .highlight-accent {
+            color: #a4855e;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.2s;
+        }
+
+        .highlight-accent:hover {
+            border-bottom-color: #a4855e;
+        }
+
+        .story-block {
+            background: #f4f1ec;
+            border-radius: 28px;
+            padding: 2.4rem 2.8rem;
+            margin: 1.2rem 0 2.2rem;
+        }
+
+        .story-block p {
+            font-size: 1.05rem;
+            color: #2f3b4b;
+            margin-bottom: 1rem;
+        }
+
+        .story-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #ddd9d0;
+            padding-bottom: 1.2rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #1e2a3a;
+            margin-bottom: 0.3rem;
+        }
+
+        .faq-answer {
+            font-size: 0.95rem;
+            color: #4a5a6a;
+        }
+
+        .footer-links {
+            background: #eae7e0;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid #d6d0c5;
+        }
+
+        .footer-links p {
+            font-size: 0.9rem;
+            color: #4a5a6a;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #7a684b;
+            text-decoration: none;
+            border-bottom: 1px dotted #7a684b;
+            margin: 0 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #1e2a3a;
+            border-bottom-style: solid;
+        }
+
+        .inline-link {
+            color: #7a684b;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.2s;
+        }
+
+        .inline-link:hover {
+            border-bottom-color: #7a684b;
+        }
+
+        @media (max-width: 680px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 3.5rem 1.2rem 3rem;
+            }
+
+            .section {
+                padding: 2.4rem 0;
+            }
+
+            .story-block {
+                padding: 1.8rem 1.2rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="tagline">回到你熟悉的地方</div>
+        <h1>再次打开 <span>ng28</span></h1>
+        <p>无论你上次是什么时候到来，这里始终为你准备了一份简洁与安静。收藏它，就像收藏一个熟悉的角落。</p>
+    </section>
+
+    <div class="container">
+
+        <section class="section">
+            <h2 class="section-title">为什么值得再次打开</h2>
+            <p style="margin-bottom: 1.8rem; font-size: 1.05rem; color: #3b4a5a;">
+                有时候我们只是需要一个不吵闹的起点。没有铺天盖地的弹窗，没有复杂的跳转——<a href="https://portal--ng28.com" class="inline-link">ng28</a> 保持着一贯的克制与稳定。再次访问时，你甚至会发现布局依旧熟悉，就像从未离开过。
+            </p>
+            <div class="cards">
+                <div class="card">
+                    <h3>不打扰的节奏</h3>
+                    <p>页面加载利落，重点内容一目了然。没有冗余的推送，也不需要反复关闭提示。安静，是对注意力最好的尊重。</p>
+                </div>
+                <div class="card">
+                    <h3>收藏即重逢</h3>
+                    <p>将当前页加入书签或浏览器收藏夹，下次访问只需一次点击。很多用户习惯把 <a href="https://portal--ng28.com" class="highlight-accent">ng28</a> 放在常用栏，因为稳定可靠。</p>
+                </div>
+                <div class="card">
+                    <h3>持续的小改进</h3>
+                    <p>界面细节在慢慢优化，但核心体验从未变味。每次回来你都会感受到顺滑，而不会觉得陌生。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">一些值得留意的片段</h2>
+            <div class="story-block">
+                <p>有用户跟我分享，他每周会固定打开两次 <a href="https://portal--ng28.com" class="inline-link">ng28</a>，不是为了寻找什么新鲜事，只是习惯了在这里停留几分钟。他说，这种感觉像是一天中一个安静的顿号。</p>
+                <p>另一个经常出差的朋友，把页面设成了手机浏览器的快捷方式。无论在哪座城市，打开同一个页面，就像回到了同一张书桌前。</p>
+                <p>这些细小的使用方式，恰是页面一直保持简洁的原因。没有多余的功能，反而让每一次访问都变得轻松。</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">常见想法 · 简短回答</h2>
+            <div class="faq-summary">
+                <div class="faq-item">
+                    <div class="faq-question">页面会不会经常改动？</div>
+                    <div class="faq-answer">不会。核心结构保持稳定，偶尔优化加载速度和阅读体验，但不会突然改变布局让老用户感到困惑。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">需要注册或登录吗？</div>
+                    <div class="faq-answer">不需要。这是一个开放的信息页面，任何时候都可以直接访问，没有账户体系，也没有强制步骤。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">如何确保下次还能快速找到？</div>
+                    <div class="faq-answer">最直接的方式是添加浏览器书签，或者把页面添加到主屏幕（移动端）。此外，记住 <a href="https://portal--ng28.com" class="inline-link">ng28</a> 这个地址也足够简单。</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer-links">
+        <p>再次感谢你的停留与关注。</p>
+        <p>
+            <a href="https://portal--ng28.com">ng28</a> ·
+            <a href="#">回到顶部</a> ·
+            <a href="#">收藏本页</a>
+        </p>
+        <p style="margin-top: 1.2rem; font-size: 0.8rem; color: #7a7a6e;">持续保持安静，不打扰是你的权利。</p>
+    </footer>
+
+</body>
+</html>
